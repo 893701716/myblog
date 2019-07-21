@@ -1,0 +1,71 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆注册</title>
+    <link rel="stylesheet" href="{% static 'newapp/myblog.css' %}">
+    <script src="{% static 'newapp/jquery.js' %}"></script>
+    <style>
+        #loginpage{
+            background-image: url({% static 'newapp/image/logpicture.png' %});
+        }
+    </style>
+</head>
+<body>
+<div id="loginpage">
+    <h2 >欢迎登陆</h2>
+    <form action="{% url 'newapp:login' %}" method="post" id="form">
+        {% csrf_token %}
+        电话号:&nbsp;<input type="text" name="number"  id="phonenumber" placeholder="请输入电话号" minlength="11">&nbsp;&nbsp;&nbsp;&nbsp;
+        <br><br>
+        密码:&nbsp;<input type="password" name="password"  id="password" placeholder="请输入密码" required>
+        <br><br>
+        <input type="submit" value="登陆" id="login">
+        <br>
+    </form>
+       <h4>没有账号？<a href="{% url 'newapp:registry' %}" title="前往注册">点击前往注册</a></h4>
+</div>
+<script>
+    window.onload=function(){
+        var login =document.getElementById('login')
+        var name=document.getElementById('phonenumber')
+        var number=document.getElementById('password')
+        login.onclick=function(){
+            if(phonenumber.value=='' && password.value=='' ){
+                window.alert("请输入完整的登陆信息！")
+                setTimeout(function(){
+                    $('#phonenumber').focus();
+                })
+                return false
+            }
+            if(phonenumber.value=='' ){
+                window.alert("请输入用于登陆的电话号！")
+                setTimeout(function(){
+                    $('#phonenumber').focus();
+                })
+                return false
+            }if(toString(phonenumber.value).length<11){
+                window.alert("请输入正确的电话号！")
+                setTimeout(function(){
+                    $('#phonenumber').focus();
+                })
+                return false
+            }
+            if(password.value==''){
+                window.alert("请输入密码")
+                setTimeout(function(){
+                    $('#password').focus();
+                })
+                return false
+            }else{
+                return true
+            }
+        }
+    }
+</script>
+</body>
+</html>

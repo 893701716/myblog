@@ -1,0 +1,72 @@
+{% extends 'newapp/blogPage.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>{{ name }}的个人中心</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <style>
+        #external{
+            width: 800px;
+            height: 800px;
+            background-color: white;
+            margin: 100px auto;
+            border-radius: 5px;
+        }
+    h1{
+        text-align: left;
+    }
+    .current{
+        color:green;
+    }
+    #content{
+        padding: 50px;
+    }
+    p{
+       text-align: justify;
+    }
+    </style>
+    <div id="external" >
+    <div id="content" style="float:left" >
+        <h1 style="color:gold;">你好，{{ name }}!</h1>
+        {% with allmessage as  am %}
+            {% if am.count > 0 %}
+             <h1 style="color:green">你在此网站有{{ am.count}}条博客记录！</h1>
+                <hr>
+                {% else %}
+                <h1 style="color:green">没有发现你的博客记录哦！快去写博客吧！</h1>
+                <img src="{% static 'newapp/image/welcome.jpg' %}" alt="">
+            {% endif %}
+            {% for foo in allpage %}
+{#                {{ forloop.counter}},{{ foo.pubtime |date:"Y-m-d H:i:s" }}<br>#}
+               <h3>{{ foo.title }}</h3>
+            <p>{{ foo.leavemessage }}</p><br>
+                 <img src="/media/{{ foo.image}}" alt="" width="400px" height="400px"><br>
+                <h4 style="text-align: right">{{ foo.pubtime|date:'Y-m-d H:i:s' }}</h4>
+                <hr>
+        {% endfor %}
+            <div class="paginator">
+            <span class="step-links">
+                {% if allpage.has_previous %}
+                    <a href="?page=1">首页</a>
+                    <a href="?page={{ allpage.previous_page_number }}">上一页</a>
+                {% endif %}
+            <span class="current">
+                {{ allpage.number }}
+            </span>
+            {% if allpage.has_next %}
+                <a href="?page={{ allpage.next_page_number }}">下一页</a>
+                <a href="?page={{ allpage.paginator.num_pages }}">末页</a>
+            {% endif %}
+            </span>
+            </div>
+        {% endwith %}
+    </div>
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'newapp/blogPage.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>写博客</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+        <link rel="stylesheet" href="{% static 'newapp/writepage.css' %}">
+<div id="extrinsic" >
+<div id="textarea" >
+ <h1>在此开始你的博客吧！</h1>
+    <form action="{% url 'newapp:savemessage' %} " method="post" id="form" enctype="multipart/form-data" accept-charset="utf-8">
+        {% csrf_token %}
+        <h2>标题：<input type="text" maxlength="30" name="caption" id="caption" required></h2>
+        <textarea name="text" id="text" cols="80" rows="30"></textarea><br>
+        上传图片：<input type="file" name="file" id="img" multiple>
+        <input type="submit" value="发表" id="submit" >
+</form>
+    </div>
+</div>
+<script>
+   window.onload=function(){
+       var text = document.getElementById('text')
+    var caption = document.getElementById('caption')
+    var alias = document.getElementById('alias')
+    var submit = document.getElementById('submit')
+       var img =document.getElementById('img')
+    submit.onclick=function(){
+        if(caption.value==''){
+            window.alert('你还没有输入文章标题！')
+            return false
+        }
+        if(text.value==''){
+            window.alert("请输入留言内容！")
+            return false
+        }
+        else{
+            return true
+        }
+    }
+   }
+</script>
+{% endblock %}
+</body>
+</html>

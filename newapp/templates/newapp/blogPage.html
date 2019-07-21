@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>首页</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'newapp/blogPage.css' %}">
+
+</head>
+<body>
+<header>
+<div id="nevigator">
+ <ul id="starlist">
+     <li class="tabli"><a href="{% url 'newapp:blogPage' %}" title="前往首页">首页</a></li>
+        <li class="tabli"><a href="{% url 'newapp:pannelpage' %}" title="查看最新博客">最新博客</a></li>
+    <li class="tabli"><a href="{% url 'newapp:writepage' %}" title="书写博客">写博客</a></li>
+    <li class="tabli"><a href="{% url 'newapp:personalpage' %}" title="前往个人中心">个人中心</a></li>
+ </ul>
+</div>
+</header>
+{% block content %}
+    <div id="top">
+    <h1>这是一个公开的博客社区，在这里你可以随便地记录自己的想法。</h1>
+{#    <h1>内容将以留言板的形式呈现，所有进入此网站的人都能够看到！</h1>#}
+    <h1>我们期待你的所有想法，也希望你的想法阳光向上具有能量！</h1>
+        <img src="{% static 'newapp/image/cbf1a579f2d29134.png' %} " alt="" >
+    </div>
+{% endblock %}
+</body>
+</html>

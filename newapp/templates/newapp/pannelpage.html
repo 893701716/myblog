@@ -1,0 +1,50 @@
+{% extends 'newapp/blogPage.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+     <title>最新博客</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <link rel="stylesheet" href="{% static 'newapp/pannelpage.css'%}">
+     <div id="content">
+         <br>
+      {% if mess.number == 1 %}
+             <h1>最新博客：</h1><br>
+             {% endif %}
+         {% for foo in mess %}
+             <h5 style="text-align: center;color: goldenrod;" >{{ foo.title }}</h5>
+          <p>{{ foo.leavemessage }}
+              <br>
+              {% if foo.image %}
+                <img src="/media/{{ foo.image}}" alt="" width="400px" height="300px" style="margin-left: 5em">
+              {% endif %}
+          </p>
+             <h6 style="text-align: right;color: blueviolet;">————{{ foo.username }}&nbsp;&nbsp;&nbsp;{{ foo.pubtime |date:"Y-m-d H:i:s"}}</h6><br>
+{#             <div>#}
+{#               最新评论：<br><div id="comment"></div><div id="writecomment"></div>#}
+{#             </div>#}
+         {% endfor %}
+     <div class="pagination">
+    <span class="step-links">
+        {% if mess.has_previous %}
+            <a href="?page=1">首页</a>
+            <a href="?page={{ mess.previous_page_number }}">上一页</a>
+        {% endif %}
+        <span class="current">
+            {{ mess.number }}
+        </span>
+        {% if mess.has_next %}
+            <a href="?page={{ mess.next_page_number }}">下一页</a>
+            <a href="?page={{ mess.paginator.num_pages}}">末页</a>
+        {% endif %}
+    </span>
+</div>
+    </div>
+{% endblock %}
+</body>
+</html>

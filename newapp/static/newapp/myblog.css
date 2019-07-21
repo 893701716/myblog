@@ -1,0 +1,32 @@
+
+h3 {
+    text-align: center;
+    color: green;
+}
+h2{
+    text-align: center;
+}
+h4{
+   text-align:center;
+}
+#contentdiv{
+    margin:50px auto;
+}
+#loginpage{
+    width: 500px;
+    height: 300px;
+    margin:100px auto;
+    border-radius: 30px;
+    padding-top: 18px;
+}
+input{
+    line-height: 20px;
+    border-radius: 5px;
+    width: 200px;
+}
+#form{
+    text-align: center;
+}
+#login{
+    width: 150px;
+}

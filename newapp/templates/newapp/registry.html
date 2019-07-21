@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎注册！</title>
+    <link rel="stylesheet" href="{% static 'newapp/registry.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <script src="{% static 'newapp/jquery.js' %}"></script>
+    <style>
+        #registrypage{
+            background-image:url({% static 'newapp/image/registrypicture.png' %});
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+    <link rel="stylesheet" href="{% static 'newapp/registry.css' %}">
+<div id="registrypage" class="current"  >
+    <div id="contentdiv">
+        <h2 font="Lobster">请填写注册信息！</h2>
+        <form action="{% url 'newapp:registered' %}" method="post">
+             {% csrf_token %}
+       姓名:&nbsp;&nbsp;<input type="text" name="name"  id="alias" autofocus><br>
+            <br>
+       性别:&nbsp;&nbsp;<input type="text" name="gender" id="gender" list="genderlist">
+            <datalist id="genderlist">
+                <option value="男"></option>
+                <option value="女"></option>
+            </datalist>
+            <br>
+            <br>
+       年龄:&nbsp;&nbsp;<input type="number" name="age"  id="age" min="1" max="120"><br>
+            <br>
+       电话:&nbsp;&nbsp;<input type="text" name="number" id="number" maxlength="11"><br>
+            <br>
+            密码:&nbsp;&nbsp;<input type="password" name="password1" id="password1" ><br>
+            <br>
+            确认密码:&nbsp;&nbsp;<input type="password" name="password2" id="password2" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            <br>
+        <input type="submit" value="注册" id="register" class="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="退出" id="exitbutton" class="button">
+    </form>
+    </div>
+</div>
+{% endblock %}
+<script>
+    var exitbutton=document.getElementById('exitbutton')
+    exitbutton.onclick=function () {
+        window.history.back()
+    }
+    var register=document.getElementById('register')
+    var alias=document.getElementById('alias')
+    var gender=document.getElementById('gender')
+    var age=document.getElementById('age')
+    var number=document.getElementById('number')
+    var p1=document.getElementById('password1')
+    var p2=document.getElementById('password2')
+    register.onclick=function(){
+        if(alias.value==''&&gender.value==''&&age.value==''&&number.value==''&&p1.value==''&&p2.value==''){
+            window.alert("请输入完整的注册信息！")
+            setTimeout(function(){
+            	$('#alias').focus()
+            },100)
+            return false
+            }
+        if(alias.value==''){
+            window.alert("请填写你的姓名！")
+            setTimeout(function(){
+                $('#alias').focus()
+            },100)
+            return false
+        }if(gender.value==''){
+            window.alert("请填写你的性别！")
+            setTimeout(function(){
+                $('#gender').focus()
+            },100)
+            return false
+        }
+        if(age.value==''){
+            window.alert("请填写你的年龄！")
+            setTimeout(function(){
+                $('#age').focus()
+            },100)
+            return false
+        }
+        if(number.value==''){
+            window.alert("请填写你的电话号！")
+            setTimeout(function(){
+                $('#number').focus()
+            },100)
+            return false
+        }if(p1.value==''){
+            window.alert("请设置你的密码！")
+            setTimeout(function(){
+                $('#password1').focus()
+            },100)
+            return false
+        }
+        if(p2.value==''){
+            window.alert("请确认你的密码！")
+            setTimeout(function(){
+                $('#password2').focus()
+            },100)
+            return false
+        }
+        if(p1.value!=p2.value){
+            window.alert("两次输入的密码不一致，请重新输入！")
+            setTimeout(function(){
+                $('#password2').focus()
+            },100)
+            return false
+        } else{
+            return true
+        }
+    }
+</script>
+</body>
+</html>

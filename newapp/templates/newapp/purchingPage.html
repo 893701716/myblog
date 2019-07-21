@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'newapp:purchased' %}" method="post" >
+    {% csrf_token %}
+    输入你的薪水：<input type="text" name="salary" id="salary">
+    <fieldset >
+        <legend>商品信息</legend>
+        1,iphone:5000元<input type="checkbox" name="product" value="5000" ><br>
+        2,macpro:12000元<input type="checkbox" name="product" value="12000"><br>
+        3,coffee:31元<input type="checkbox" name="product" value="31" ><br>
+        4，book:81元<input type="checkbox" name="product" value="81" ><br>
+    </fieldset>
+    <input type="submit" value="确定" id="submit">
+</form>
+<script>
+    window.onload=function(){
+        var salary=document.getElementById('salary')
+        submit=document.getElementById('submit')
+        var balance
+        submit.onclick=function () {
+            var allp=document.getElementsByName('product')
+            allpri=[]  // 定义一个空列表用来保存
+            var sum=0
+            for( k in allp){
+                if( allp[k].checked){
+                    allpri.push(allp[k].value)
+                }
+            }
+            for( i in allpri){
+                sum += parseInt(allpri[i])   //算出来 勾选商品的总额
+            }
+            balance=salary.value-sum
+            if(balance<0){
+               window.alert("你的余额不足！")
+               return false
+              }else{
+                window.alert("你的余额为："+balance)
+                   return true
+   }
+            }
+    }
+</script>
+</body>
+</html>
